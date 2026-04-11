@@ -1,38 +1,38 @@
 # 🌍 CYCLE-IT: The Future of Circular Technology
 
-**CYCLE-IT** no es solo una Web App; es un movimiento global para transformar la basura electrónica en oportunidades educativas. Desarrollada bajo los estándares de **Sistemas Microinformáticos y Redes (SMR)**, esta plataforma es la respuesta definitiva al desperdicio tecnológico y la brecha digital.
+**CYCLE-IT** is not just a Web App; it is a global movement designed to transform electronic waste into powerful educational opportunities. Developed under **IT Systems and Networks (SMR)** standards, this platform is the definitive answer to technological waste and the digital divide.
 
 ---
 
-## 🚀 ¿Por qué el mundo necesita CYCLE-IT?
+## 🚀 Why does the world need CYCLE-IT?
 
-Cada año se generan millones de toneladas de *e-waste*. Mientras tanto, miles de estudiantes carecen de hardware potente. **CYCLE-IT rompe este ciclo.**
+Every year, millions of tons of e-waste are generated. Meanwhile, thousands of students lack access to powerful hardware. **CYCLE-IT breaks this cycle.**
 
-### 💎 Puntos Clave:
+### 💎 Key Features:
 
-* **🌱 Trazabilidad de CO₂ Real:** Mediante escaneo QR, visualizamos el ahorro de carbono de cada equipo reacondicionado.
-* **💻 Optimización Extrema:** Implementamos **Lubuntu** para devolver el rendimiento de "gama alta" a equipos obsoletos.
-* **♿ Inclusión Total:** Integración nativa del lector de pantalla **Orca**, haciendo que la tecnología sea para todos.
-* **⚡ Eficiencia IoT:** Monitorización inteligente del consumo energético para reducir la huella operativa.
+* **🌱 Real CO₂ Traceability:** Using QR code scanning, we visualize the carbon savings and e-waste reduction for every refurbished unit.
+* **💻 Extreme Optimization:** We implement **Lubuntu** to restore "high-end" performance to hardware previously considered obsolete.
+* **♿ Total Inclusion:** Native integration for accessibility tools like the **Orca** screen reader, ensuring technology is for everyone.
+* **⚡ IoT Efficiency:** Smart monitoring of energy consumption to minimize the operational carbon footprint.
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technical Stack
 
-| Componente | Tecnología |
+| Component | Technology |
 | :--- | :--- |
 | **Runtime** | Node.js / pnpm |
 | **Framework** | Vite + Modern Frontend |
-| **Despliegue** | Vercel (CI/CD) |
-| **Gestión** | GitHub (Version Control) |
-| **S.O. Objetivo** | Lubuntu / Linux |
+| **Deployment** | Vercel (CI/CD) |
+| **Management** | GitHub (Version Control) |
+| **Target O.S.** | Lubuntu / Linux |
 
 ---
 
-## 📦 Instalación y Uso
+## 📦 Installation & Setup
 
-Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
+To run this project in your local environment, follow these steps:
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 ```bash
 git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuertasa/CYCLE-IT.git)
