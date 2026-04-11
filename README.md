@@ -41,4 +41,4 @@ git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuerta
 pnpm install
 
 # 3. Iniciar modo desarrollo
-pnpm run dev
+pnpm run dev 
