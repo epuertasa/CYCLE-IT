@@ -2,10 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  // Cambiamos la base a './' para que funcione en cualquier sitio
-  base: "./",
+  base: "/",
   plugins: [
     react(),
     tailwindcss(),
@@ -16,12 +19,15 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
-  // El root es la carpeta actual
-  root: process.cwd(),
+  root: __dirname,
   build: {
-    // La carpeta de salida que espera Vercel
     outDir: "dist",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+      },
+    },
   },
   server: {
     port: 3000,
