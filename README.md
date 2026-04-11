@@ -41,6 +41,6 @@ pnpm install
 
 # 3. Start development mode
 pnpm run dev
-
+````
 Developer's Note: Project created by Erik as part of the SMR degree.
 Transforming yesterday's waste into a sustainable future.
