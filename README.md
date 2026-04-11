@@ -37,13 +37,13 @@ To run this project in your local environment, follow these steps:
 ```bash
 git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuertasa/CYCLE-IT.git)
 
-### 2. Install dependencies
+2. Install dependencies
 ```bash
 pnpm install
 
-### 3. Start development mode
-```bash
+3. Start development mode
 pnpm run dev
 
 Developer's Note: Project created by Erik as part of the SMR degree.
+
 Transforming yesterday's waste into a sustainable future.
