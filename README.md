@@ -33,10 +33,14 @@ Every year, millions of tons of e-waste are generated. Meanwhile, thousands of s
 
 To run this project in your local environment, follow these steps:
 
-### 1. Clone the repository
-```bash
-git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuertasa/CYCLE-IT.git)
+# 1. Clone the repository
+git clone https://github.com/epuertasa/CYCLE-IT.git
 
+# 2. Install dependencies
 pnpm install
 
-pnpm run dev 
+# 3. Start development mode
+pnpm run dev
+
+Developer's Note: Project created by Erik as part of the SMR degree.
+Transforming yesterday's waste into a sustainable future.
