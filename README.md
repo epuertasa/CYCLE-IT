@@ -1,50 +1,38 @@
-🌍 CYCLE-IT: The Future of Circular Technology
-CYCLE-IT no es solo una Web App; es un movimiento global para transformar la basura electrónica en oportunidades educativas. Desarrollada bajo los estándares de Sistemas Microinformáticos y Redes (SMR), esta plataforma es la respuesta definitiva al desperdicio tecnológico y la brecha digital.
+# 🌍 CYCLE-IT: The Future of Circular Technology
 
-🚀 ¿Por qué el mundo necesita CYCLE-IT?
-Cada año se generan millones de toneladas de e-waste. Mientras tanto, miles de estudiantes carecen de hardware potente. CYCLE-IT rompe este ciclo.
+**CYCLE-IT** no es solo una Web App; es un movimiento global para transformar la basura electrónica en oportunidades educativas. Desarrollada bajo los estándares de **Sistemas Microinformáticos y Redes (SMR)**, esta plataforma es la respuesta definitiva al desperdicio tecnológico y la brecha digital.
 
-🌱 Trazabilidad de CO₂ Real: Mediante escaneo QR, visualizamos el ahorro de carbono de cada equipo reacondicionado. No es teoría, son datos.
+---
 
-💻 Optimización Extrema: Implementamos Lubuntu para devolver el rendimiento de "gama alta" a equipos considerados obsoletos.
+## 🚀 ¿Por qué el mundo necesita CYCLE-IT?
 
-♿ Inclusión Total: Integración nativa para herramientas de accesibilidad como el lector de pantalla Orca, haciendo que la tecnología sea para todos.
+Cada año se generan millones de toneladas de *e-waste*. Mientras tanto, miles de estudiantes carecen de hardware potente. **CYCLE-IT rompe este ciclo.**
 
-⚡ Eficiencia IoT: Monitorización inteligente del consumo energético para reducir la huella operativa al mínimo.
+### 💎 Puntos Clave:
 
-🛠️ Stack Tecnológico
-Runtime: Node.js / pnpm
+* **🌱 Trazabilidad de CO₂ Real:** Mediante escaneo QR, visualizamos el ahorro de carbono de cada equipo reacondicionado.
+* **💻 Optimización Extrema:** Implementamos **Lubuntu** para devolver el rendimiento de "gama alta" a equipos obsoletos.
+* **♿ Inclusión Total:** Integración nativa del lector de pantalla **Orca**, haciendo que la tecnología sea para todos.
+* **⚡ Eficiencia IoT:** Monitorización inteligente del consumo energético para reducir la huella operativa.
 
-Framework: Vite + Modern Frontend
+---
 
-Despliegue: Vercel (CI/CD)
+## 🛠️ Stack Tecnológico
 
-Gestión: GitHub para control de versiones
+| Componente | Tecnología |
+| :--- | :--- |
+| **Runtime** | Node.js / pnpm |
+| **Framework** | Vite + Modern Frontend |
+| **Despliegue** | Vercel (CI/CD) |
+| **Gestión** | GitHub (Version Control) |
+| **S.O. Objetivo** | Lubuntu / Linux |
 
-S.O. Objetivo: Lubuntu / Linux
+---
 
-📦 Instalación y Uso
-Para ejecutar este proyecto en tu entorno local:
+## 📦 Instalación y Uso
 
-Bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/CYCLE-IT.git
+Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 
-# Instalar dependencias
-pnpm install
-
-# Iniciar en modo desarrollo
-pnpm run dev
-🤝 Contribuye al Cambio
-¿Quieres ayudar a salvar el planeta mientras hackeas hardware?
-
-Haz un Fork del proyecto.
-
-Crea una rama con tu mejora (git checkout -b feature/MejoraIncreible).
-
-Haz un Commit (git commit -m 'Añadida nueva métrica IoT').
-
-¡Envía un Pull Request!
-
-Desarrollado con ❤️ por Erik - Estudiante de SMR
-Transformando el ayer en el futuro sostenible.
+### 1. Clonar el repositorio
+```bash
+git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuertasa/CYCLE-IT.git)
