@@ -1,45 +1,44 @@
-# 🌍 CYCLE-IT: The Future of Circular Technology
+# 🌍 CYCLE-IT: El Futuro de la Tecnología Circular
 
-**CYCLE-IT** is not just a Web App; it is a global movement designed to transform electronic waste into powerful educational opportunities. Developed under **IT Systems and Networks (SMR)** standards, this platform is the definitive answer to technological waste and the digital divide.
-
----
-
-## 🚀 Why does the world need CYCLE-IT?
-
-Every year, millions of tons of e-waste are generated. Meanwhile, thousands of students lack access to powerful hardware. **CYCLE-IT breaks this cycle.**
-
-### 💎 Key Features:
-
-* **🌱 Real CO₂ Traceability:** Using QR code scanning, we visualize the carbon savings and e-waste reduction for every refurbished unit.
-* **💻 Extreme Optimization:** We implement **Lubuntu** to restore "high-end" performance to hardware previously considered obsolete.
-* **♿ Total Inclusion:** Native integration for accessibility tools like the **Orca** screen reader, ensuring technology is for everyone.
-* **⚡ IoT Efficiency:** Smart monitoring of energy consumption to minimize the operational carbon footprint.
+**CYCLE-IT** no es solo una Web App; es un movimiento global diseñado para transformar los residuos electrónicos en poderosas oportunidades educativas. Desarrollada bajo los estándares de **Sistemas Microinformáticos y Redes (SMR)**, esta plataforma es la respuesta definitiva al desperdicio tecnológico y a la brecha digital.
 
 ---
 
-## 🛠️ Technical Stack
+## 🚀 ¿Por qué el mundo necesita CYCLE-IT?
 
-| Component | Technology |
+Cada año se generan millones de toneladas de basura electrónica. Mientras tanto, miles de estudiantes carecen de acceso a hardware potente. **CYCLE-IT rompe este ciclo.**
+
+### 💎 Características Clave:
+
+* **🌱 Trazabilidad de CO₂ Real:** Mediante el escaneo de códigos QR, visualizamos el ahorro de carbono y la reducción de residuos electrónicos de cada unidad reacondicionada.
+* **💻 Optimización Extrema:** Implementamos **Lubuntu** para devolver un rendimiento de "gama alta" a hardware que antes se consideraba obsoleto.
+* **♿ Inclusión Total:** Integración nativa de herramientas de accesibilidad como el lector de pantalla **Orca**, garantizando que la tecnología sea para todos.
+* **⚡ Eficiencia IoT:** Monitorización inteligente del consumo energético para minimizar la huella de carbono operativa.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Componente | Tecnología |
 | :--- | :--- |
-| **Runtime** | Node.js / pnpm |
-| **Framework** | Vite + Modern Frontend |
-| **Deployment** | Vercel (CI/CD) |
-| **Management** | GitHub (Version Control) |
-| **Target O.S.** | Lubuntu / Linux |
+| **Entorno de ejecución** | Node.js / pnpm |
+| **Framework** | Vite + Frontend Moderno |
+| **Despliegue** | Vercel (CI/CD) |
+| **Gestión** | GitHub (Control de Versiones) |
+| **S.O. Objetivo** | Lubuntu / Linux |
 
 ---
 
-## 📦 Installation & Setup
+## 📦 Instalación y Configuración
 
-To run this project in your local environment, execute the following commands in your terminal:
+Para ejecutar este proyecto en tu entorno local, ejecuta los siguientes comandos en tu terminal:
 
 ```bash
-# 1. Clone the repository
+# 1. Clonar el repositorio
 git clone [https://github.com/epuertasa/CYCLE-IT.git](https://github.com/epuertasa/CYCLE-IT.git)
 
-# 2. Install dependencies
+# 2. Instalar dependencias
 pnpm install
 
-# 3. Start development mode
+# 3. Iniciar modo desarrollo
 pnpm run dev
-
