@@ -1,4 +1,4 @@
-# 🌍 CYCLE-IT: El Futuro de la Tecnología Circular
+# 🌍 CYCLE-IT: El Futuro de la Tecnología Circular 
 
 **CYCLE-IT** no es solo una Web App; es un movimiento global diseñado para transformar los residuos electrónicos en poderosas oportunidades educativas. Desarrollada bajo los estándares de **Sistemas Microinformáticos y Redes (SMR)**, esta plataforma es la respuesta definitiva al desperdicio tecnológico y a la brecha digital.
 
