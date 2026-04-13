@@ -6,6 +6,7 @@
 
 ## 🚀 ¿Por qué el mundo necesita CYCLE-IT?
 
+
 Cada año se generan millones de toneladas de basura electrónica. Mientras tanto, miles de estudiantes carecen de acceso a hardware potente. **CYCLE-IT rompe este ciclo.**
 
 ### 💎 Características Clave:
