@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useTranslation } from "@/hooks/use-translation";
 import { useTheme } from "next-themes";
-import { Leaf, Sun, Moon, BarChart3, Info, QrCode, Menu, X, Home, Mail, Cpu } from "lucide-react";
+import { Sun, Moon, BarChart3, Info, QrCode, Menu, X, Home, Mail, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -44,7 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2 text-primary font-bold text-xl" data-testid="link-logo">
-            <Leaf className="h-6 w-6" />
+            <img src="/logo-cycle-it.png" alt="Logo" className="h-8 w-8 object-contain" />
             <span>CYCLE-IT</span>
           </Link>
 
@@ -144,7 +144,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-primary font-bold text-lg">
-              <Leaf className="h-5 w-5" />
+              <img src="/logo-cycle-it.png" alt="Logo" className="h-6 w-6 object-contain" />
               <span>CYCLE-IT</span>
             </div>
             <p className="text-xs text-muted-foreground text-center">

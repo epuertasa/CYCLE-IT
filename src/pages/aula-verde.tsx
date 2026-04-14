@@ -25,7 +25,7 @@ export default function AulaVerde() {
         <section className="rounded-xl overflow-hidden shadow-2xl border border-border">
           <img
             src="/aula_verde.png"
-            alt="Render 3D del Aula Sostenible SMR"
+            alt="Render 3D del Espacio Sostenible"
             className="w-full h-auto object-cover aspect-video hover:scale-[1.02] transition-transform duration-700"
           />
         </section>
