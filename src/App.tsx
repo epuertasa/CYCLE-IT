@@ -14,6 +14,7 @@ import About from "@/pages/about";
 import QrCodes from "@/pages/qrcodes";
 import NotFound from "@/pages/not-found";
 import AulaVerde from "@/pages/aula-verde";
+import RpiScript from "@/pages/rpi-script";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/aula-verde" component={AulaVerde} />
         <Route path="/qrcodes" component={QrCodes} />
+        <Route path="/rpi-script" component={RpiScript} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -65,7 +65,19 @@ export const translations = {
     "aula_verde.conceptTitle": "El Concepte Industrial",
     "aula_verde.conceptText": "L'Espai Sostenible no va de plantes, va d'arquitectura tecnològica eficient per a empreses. Prioritzem sistemes de baix consum i monitorització IoT per maximitzar l'estalvi i la circularitat.",
     "aula_verde.safetyTitle": "Seguretat i Ergonomia",
-    "aula_verde.safetyText": "Dissenyat per a fluxos de treball moderns. Una combinació lliure de riscos laborals ideal per a institucions i empreses que aposten per un futur verd."
+    "aula_verde.safetyText": "Dissenyat per a fluxos de treball moderns. Una combinació lliure de riscos laborals ideal per a institucions i empreses que aposten per un futur verd.",
+    "nav.rpi_script": "Aforrament amb RPi",
+    "rpi.title": "Estalvia energia amb Raspberry Pi",
+    "rpi.subtitle": "Script clau en mà dissenyat perquè la Raspberry Pi detecti la inactividad de l'ordinador i procedeixi a apagar-lo.",
+    "rpi.step1.title": "1. Descarrega l'script",
+    "rpi.step1.desc": "Fes clic al botó de baix per baixar el fitxer 'rpi-energy-saver.py'. Conté totes les instruccions generals.",
+    "rpi.step2.title": "2. Envia-ho a la teva Raspberry Pi",
+    "rpi.step2.desc": "Et recomanem fer servir SCP o clonant el codi directament a la targeta SD. Deixa el fitxer a prop com a `/home/pi/scripts/`.",
+    "rpi.step3.title": "3. Configura la IP del PC",
+    "rpi.step3.desc": "Edita el fitxer i canvia `PC_IP = \"...\"` canviant-la per l'adreça en xarxa de l'ordinador principal. L'script farà un ping continu per testar.",
+    "rpi.step4.title": "4. Executa-ho permanentment",
+    "rpi.step4.desc": "Pots utilitzar utilitats com `systemd`, `cron` o la comanda `nohup python3 rpi-energy-saver.py &` per assegurar-te que sempre estigui viu.",
+    "rpi.downloadBtn": "Descarregar script (.py)"
   },
   es: {
     "nav.home": "Inicio",
@@ -131,7 +143,19 @@ export const translations = {
     "aula_verde.conceptTitle": "El Concepto Industrial",
     "aula_verde.conceptText": "El Espacio Sostenible no va de plantas, va de arquitectura tecnológica eficiente para empresas. Priorizamos sistemas de bajo consumo y monitorización IoT para maximizar el ahorro y la circularidad.",
     "aula_verde.safetyTitle": "Seguridad y Ergonomía",
-    "aula_verde.safetyText": "Diseñado para flujos de trabajo modernos. Una combinación libre de riesgos laborales ideal para instituciones y empresas que apuestan por un futuro verde."
+    "aula_verde.safetyText": "Diseñado para flujos de trabajo modernos. Una combinación libre de riesgos laborales ideal para instituciones y empresas que apuestan por un futuro verde.",
+    "nav.rpi_script": "Ahorro con RPi",
+    "rpi.title": "Ahorra energía con Raspberry Pi",
+    "rpi.subtitle": "Script llave en mano para que la Raspberry Pi detecte la inactividad del ordenador y actúe para apagarlo.",
+    "rpi.step1.title": "1. Descarga el script",
+    "rpi.step1.desc": "Haz clic en el botón de abajo y baja el archivo 'rpi-energy-saver.py'.",
+    "rpi.step2.title": "2. Envíalo a tu Raspberry Pi",
+    "rpi.step2.desc": "Usa SCP o descárgalo de nuevo desde la Pi. Guárdalo bien en `/home/pi/scripts/`.",
+    "rpi.step3.title": "3. Configura la IP de tu PC",
+    "rpi.step3.desc": "Cambia la variable interna `PC_IP` por la red local que tenga asignada tu ordenador. El programa pringará esta dirección.",
+    "rpi.step4.title": "4. Ejecútalo siempre",
+    "rpi.step4.desc": "Integra el archivo con servicios como `systemd`, o lánzalo siempre desde el fondo aplicando `nohup python3 rpi-energy-saver.py &`.",
+    "rpi.downloadBtn": "Descargar el script (.py)"
   }
 } as const;
 

@@ -139,36 +139,36 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  --background: 240 10% 4%;
+  --background: 222 47% 5%;
   --foreground: 0 0% 98%;
-  --border: 240 5% 15%;
-  --card: 240 10% 6%;
+  --border: 222 25% 15%;
+  --card: 222 47% 8%;
   --card-foreground: 0 0% 98%;
-  --card-border: 240 5% 15%;
-  --sidebar: 240 10% 2%;
+  --card-border: 222 25% 15%;
+  --sidebar: 222 47% 4%;
   --sidebar-foreground: 240 5% 90%;
-  --sidebar-border: 240 5% 10%;
-  --sidebar-primary: 154 90% 50%;
-  --sidebar-primary-foreground: 240 10% 4%;
+  --sidebar-border: 222 25% 10%;
+  --sidebar-primary: 154 75% 45%;
+  --sidebar-primary-foreground: 222 47% 5%;
   --sidebar-accent: 217 91% 60%;
   --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-ring: 154 90% 50%;
-  --popover: 240 10% 6%;
+  --sidebar-ring: 154 75% 45%;
+  --popover: 222 47% 8%;
   --popover-foreground: 0 0% 98%;
-  --popover-border: 240 5% 15%;
-  --primary: 154 90% 50%;
-  --primary-foreground: 240 10% 4%;
-  --secondary: 217 80% 55%;
+  --popover-border: 222 25% 15%;
+  --primary: 154 75% 45%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 217 60% 55%;
   --secondary-foreground: 0 0% 100%;
   --muted: 222 35% 15%;
-  --muted-foreground: 220 14% 65%;
-  --accent: 160 70% 40%;
+  --muted-foreground: 222 14% 65%;
+  --accent: 160 50% 40%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --input: 222 35% 18%;
-  --ring: 160 84% 45%;
-  --chart-1: 160 84% 45%;
+  --ring: 154 75% 45%;
+  --chart-1: 154 75% 45%;
   --chart-2: 217 80% 65%;
   --chart-3: 43 96% 60%;
   --chart-4: 280 65% 65%;
@@ -190,7 +190,7 @@
 
 @layer utilities {
   .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border-card-border shadow-lg;
+    @apply bg-card/40 backdrop-blur-2xl ring-1 ring-white/10 shadow-xl;
   }
   
   .text-gradient {
