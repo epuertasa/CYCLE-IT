@@ -1,314 +1,360 @@
 import { useTranslation } from "@/hooks/use-translation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Cpu, Server, Monitor, Activity, Radio, Layers, Zap, Thermometer, Wifi } from "lucide-react";
+import { Cpu, Server, Monitor, Activity, Layers, Zap, Wifi, Thermometer, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-interface Node {
-  id: number;
+/* ─── Types ─── */
+interface FloorNode {
+  id: string;
   type: "raspberry" | "arduino" | "pc" | "sensor";
-  x: string;
-  y: string;
   label: string;
-  status: "online" | "warning" | "offline";
-  telemetry: {
-    temp: string;
-    load: string;
-    uptime: string;
-  };
+  /** position inside the isometric floor (% based) */
+  gridX: number;
+  gridY: number;
+  status: "online" | "warning";
+  temp: string;
+  load: string;
+  uptime: string;
 }
 
+/* ─── Data ─── */
+const NODES: FloorNode[] = [
+  { id: "rpi-01", type: "raspberry", label: "Gateway RPi-01", gridX: 50, gridY: 18, status: "online", temp: "42°C", load: "12%", uptime: "14d 2h" },
+  { id: "ard-01", type: "arduino",   label: "Sensor Node A1",  gridX: 22, gridY: 42, status: "online", temp: "24°C", load: "2%",  uptime: "32d 5h" },
+  { id: "ard-02", type: "arduino",   label: "Sensor Node A2",  gridX: 78, gridY: 42, status: "online", temp: "26°C", load: "3%",  uptime: "32d 5h" },
+  { id: "ws-01",  type: "pc",        label: "Workstation 01",  gridX: 16, gridY: 68, status: "online", temp: "38°C", load: "5%",  uptime: "4h 20m" },
+  { id: "ws-02",  type: "pc",        label: "Workstation 02",  gridX: 38, gridY: 68, status: "online", temp: "40°C", load: "8%",  uptime: "4h 15m" },
+  { id: "ws-03",  type: "pc",        label: "Workstation 03",  gridX: 62, gridY: 68, status: "warning",temp: "55°C", load: "92%", uptime: "4h 10m" },
+  { id: "ws-04",  type: "pc",        label: "Workstation 04",  gridX: 84, gridY: 68, status: "online", temp: "37°C", load: "4%",  uptime: "4h 05m" },
+];
+
+/* ─── Helpers ─── */
+const TYPE_COLORS: Record<string, { icon: string; ring: string; bg: string }> = {
+  raspberry: { icon: "text-emerald-500", ring: "ring-emerald-500/40", bg: "bg-emerald-500/10" },
+  arduino:   { icon: "text-cyan-500",    ring: "ring-cyan-500/40",    bg: "bg-cyan-500/10"    },
+  pc:        { icon: "text-violet-500",  ring: "ring-violet-500/40",  bg: "bg-violet-500/10"  },
+  sensor:    { icon: "text-amber-500",   ring: "ring-amber-500/40",   bg: "bg-amber-500/10"   },
+};
+
+function NodeIcon({ type, className = "h-5 w-5" }: { type: string; className?: string }) {
+  const color = TYPE_COLORS[type]?.icon ?? "text-muted-foreground";
+  switch (type) {
+    case "raspberry": return <Server className={`${className} ${color}`} />;
+    case "arduino":   return <Cpu    className={`${className} ${color}`} />;
+    case "pc":        return <Monitor className={`${className} ${color}`} />;
+    default:          return <Zap    className={`${className} ${color}`} />;
+  }
+}
+
+/* ─── Simulated live uptime counter ─── */
+function useUptimeCounter() {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setSeconds(s => s + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+/* ─── Component ─── */
 export default function TechnicalPlan() {
   const { t } = useTranslation();
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-
-  const nodes: Node[] = [
-    { 
-      id: 1, type: "raspberry", x: "50%", y: "25%", label: "Gateway RPi-01", status: "online",
-      telemetry: { temp: "42°C", load: "12%", uptime: "14d 2h" }
-    },
-    { 
-      id: 2, type: "arduino", x: "25%", y: "45%", label: "Sensor Node A1", status: "online",
-      telemetry: { temp: "24°C", load: "2%", uptime: "32d 5h" }
-    },
-    { 
-      id: 3, type: "arduino", x: "75%", y: "45%", label: "Sensor Node A2", status: "online",
-      telemetry: { temp: "26°C", load: "3%", uptime: "32d 5h" }
-    },
-    { 
-      id: 4, type: "pc", x: "20%", y: "75%", label: "WS-01", status: "online",
-      telemetry: { temp: "38°C", load: "5%", uptime: "4h 20m" }
-    },
-    { 
-      id: 5, type: "pc", x: "40%", y: "75%", label: "WS-02", status: "online",
-      telemetry: { temp: "40°C", load: "8%", uptime: "4h 15m" }
-    },
-    { 
-      id: 6, type: "pc", x: "60%", y: "75%", label: "WS-03", status: "warning",
-      telemetry: { temp: "55°C", load: "92%", uptime: "4h 10m" }
-    },
-    { 
-      id: 7, type: "pc", x: "80%", y: "75%", label: "WS-04", status: "online",
-      telemetry: { temp: "37°C", load: "4%", uptime: "4h 05m" }
-    },
-  ];
-
-  const getIcon = (type: string, size = "h-6 w-6") => {
-    switch (type) {
-      case "raspberry": return <Server className={`${size} text-emerald-400`} />;
-      case "arduino": return <Cpu className={`${size} text-cyan-400`} />;
-      case "pc": return <Monitor className={`${size} text-slate-400`} />;
-      case "sensor": return <Zap className={`${size} text-amber-400`} />;
-      default: return <Radio className={`${size}`} />;
-    }
-  };
+  const [active, setActive] = useState<FloorNode | null>(null);
+  const sessionTime = useUptimeCounter();
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-[#020617] text-slate-200">
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
-        
-        {/* Header with futuristic glow */}
-        <div className="relative mb-16 text-center">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/10 blur-[120px] rounded-full" />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative"
-          >
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500">
-              {t("technical_plan.title")}
-            </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light tracking-wide">
-              {t("technical_plan.subtitle")}
-            </p>
-          </motion.div>
-        </div>
+    <div className="container mx-auto px-4 py-12 max-w-7xl animate-in fade-in duration-500">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Main Visualizer Area */}
-          <div className="lg:col-span-9 space-y-6">
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/50 to-cyan-500/50 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-              <Card className="relative bg-slate-950/80 border-slate-800 rounded-3xl overflow-hidden backdrop-blur-xl">
-                <CardHeader className="border-b border-slate-800/50 bg-slate-900/30 px-8 py-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-2 bg-emerald-500/10 rounded-lg">
-                        <Activity className="h-5 w-5 text-emerald-500" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-xl font-bold tracking-tight text-white">{t("technical_plan.view.2d")}</CardTitle>
-                        <CardDescription className="text-slate-500 font-mono text-xs">AULA_VERDE_OS_v2.0.4</CardDescription>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="hidden md:flex flex-col items-end">
-                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Global Latency</span>
-                        <span className="text-xs font-mono text-emerald-400">14ms</span>
-                      </div>
-                      <div className="h-10 w-[1px] bg-slate-800 hidden md:block" />
-                      <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 rounded-full border border-emerald-500/20">
-                        <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                        <span className="text-[10px] font-bold text-emerald-500 tracking-tighter">DATA LINK STABLE</span>
-                      </div>
-                    </div>
+      {/* ── Header ── */}
+      <div className="mb-14 text-center space-y-4">
+        <motion.h1
+          className="text-4xl md:text-5xl font-extrabold tracking-tight"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {t("technical_plan.title")}
+        </motion.h1>
+        <motion.p
+          className="text-xl text-muted-foreground max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+        >
+          {t("technical_plan.subtitle")}
+        </motion.p>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+
+        {/* ━━━━━━━━ MAIN 3-D ISOMETRIC FLOOR PLAN ━━━━━━━━ */}
+        <div className="xl:col-span-9 space-y-8">
+          <Card className="overflow-hidden border-2 shadow-xl">
+            <CardHeader className="border-b bg-muted/30 px-6 py-5">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Activity className="h-5 w-5 text-primary" />
                   </div>
-                </CardHeader>
-                
-                <CardContent className="p-0">
-                  <div className="relative aspect-[21/9] md:aspect-[21/9] bg-[#020617] overflow-hidden cursor-crosshair">
-                    
-                    {/* Animated Grid Background */}
-                    <div 
-                      className="absolute inset-0 opacity-20"
-                      style={{ 
-                        backgroundImage: `linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)`,
-                        backgroundSize: '40px 40px'
-                      }} 
+                  <div>
+                    <CardTitle className="text-lg">{t("technical_plan.view.3d")}</CardTitle>
+                    <CardDescription className="font-mono text-xs">AULA_VERDE // REF v2.1</CardDescription>
+                  </div>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <span className="hidden sm:block text-xs text-muted-foreground font-mono">SESSION {sessionTime}</span>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold rounded-full border border-green-500/20">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                    </span>
+                    ONLINE
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+
+            <CardContent className="p-0">
+              {/* Isometric wrapper – CSS perspective + rotateX to simulate 3-D */}
+              <div className="relative w-full overflow-hidden bg-muted/20" style={{ perspective: "1200px" }}>
+                <div
+                  className="relative w-full"
+                  style={{
+                    paddingBottom: "56%", /* 16:9 ratio */
+                    transformStyle: "preserve-3d",
+                    transform: "rotateX(45deg) rotateZ(-30deg) scale(0.72)",
+                    transformOrigin: "50% 50%",
+                  }}
+                >
+                  {/* ── Floor ── */}
+                  <div
+                    className="absolute inset-[5%] rounded-sm border-2 border-primary/30 bg-gradient-to-br from-primary/[0.04] to-primary/[0.08] shadow-[0_0_80px_-20px] shadow-primary/20"
+                    style={{
+                      backgroundImage: `
+                        repeating-linear-gradient(0deg, transparent, transparent 49px, hsl(var(--border)) 49px, hsl(var(--border)) 50px),
+                        repeating-linear-gradient(90deg, transparent, transparent 49px, hsl(var(--border)) 49px, hsl(var(--border)) 50px)
+                      `,
+                      backgroundSize: "50px 50px",
+                    }}
+                  >
+                    {/* ── Walls (3-D extruded divs) ── */}
+
+                    {/* Back wall */}
+                    <div
+                      className="absolute top-0 left-0 right-0 bg-gradient-to-b from-foreground/[0.06] to-foreground/[0.02] border-b border-foreground/10"
+                      style={{ height: "60px", transformOrigin: "top", transform: "rotateX(-90deg) translateZ(0px)" }}
+                    />
+                    {/* Left wall */}
+                    <div
+                      className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-foreground/[0.05] to-foreground/[0.02] border-r border-foreground/10"
+                      style={{ width: "60px", transformOrigin: "left", transform: "rotateY(90deg) translateZ(0px)" }}
                     />
 
-                    {/* Connection Lines Container */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                      <defs>
-                        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity="0" />
-                          <stop offset="50%" stopColor="#10b981" stopOpacity="0.5" />
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 50% 25% L 25% 45%" stroke="url(#lineGrad)" strokeWidth="1" fill="none" className="animate-pulse" />
-                      <path d="M 50% 25% L 75% 45%" stroke="url(#lineGrad)" strokeWidth="1" fill="none" className="animate-pulse" />
-                    </svg>
+                    {/* ── Furniture: Desks (flat rectangles on the floor) ── */}
+                    {/* Desk row 1 */}
+                    <div className="absolute left-[8%] top-[55%] w-[18%] h-[20%] rounded bg-foreground/[0.06] border border-foreground/10" />
+                    <div className="absolute left-[30%] top-[55%] w-[18%] h-[20%] rounded bg-foreground/[0.06] border border-foreground/10" />
+                    <div className="absolute left-[53%] top-[55%] w-[18%] h-[20%] rounded bg-foreground/[0.06] border border-foreground/10" />
+                    <div className="absolute left-[76%] top-[55%] w-[18%] h-[20%] rounded bg-foreground/[0.06] border border-foreground/10" />
 
-                    {/* Nodes mapping */}
-                    <div className="relative w-full h-full">
-                      {nodes.map((node) => (
+                    {/* Server rack area */}
+                    <div className="absolute left-[40%] top-[5%] w-[20%] h-[14%] rounded border-2 border-dashed border-primary/30 flex items-center justify-center">
+                      <span className="text-[8px] font-mono text-primary/50 uppercase tracking-widest">RACK ZONE</span>
+                    </div>
+
+                    {/* Door opening */}
+                    <div className="absolute bottom-0 right-[10%] w-[15%] h-[2px] bg-primary/50 shadow-[0_0_12px_4px] shadow-primary/20" />
+                    <span className="absolute bottom-[-18px] right-[13%] text-[7px] font-mono text-muted-foreground uppercase">DOOR</span>
+
+                    {/* ── Node markers on the floor ── */}
+                    {NODES.map((node, i) => {
+                      const colors = TYPE_COLORS[node.type];
+                      const isActive = active?.id === node.id;
+
+                      return (
                         <motion.div
                           key={node.id}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 z-10"
-                          style={{ left: node.x, top: node.y }}
-                          initial={{ opacity: 0, scale: 0.5 }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
+                          style={{ left: `${node.gridX}%`, top: `${node.gridY}%` }}
+                          initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: node.id * 0.05 }}
-                          whileHover={{ zIndex: 50 }}
-                          onHoverStart={() => setSelectedNode(node)}
-                          onHoverEnd={() => setSelectedNode(null)}
+                          transition={{ delay: 0.15 + i * 0.06, type: "spring", stiffness: 260, damping: 16 }}
+                          onClick={() => setActive(isActive ? null : node)}
                         >
-                          <div className="relative">
-                            {/* Pulse effect for status */}
-                            {node.status === "online" && (
-                              <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-md animate-ping" />
-                            )}
-                            {node.status === "warning" && (
-                              <div className="absolute inset-0 rounded-full bg-amber-500/20 blur-md animate-pulse" />
-                            )}
+                          {/* Glow ring */}
+                          <div className={`absolute inset-0 rounded-full ${colors.bg} blur-md animate-pulse`} />
 
-                            <div 
-                              className={`p-4 rounded-2xl border-2 transition-all duration-300 shadow-2xl backdrop-blur-md
-                                ${selectedNode?.id === node.id 
-                                  ? 'bg-slate-900 border-white scale-125' 
-                                  : 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50'
-                                }`}
-                            >
-                              {getIcon(node.type)}
-                            </div>
+                          {/* Extruded marker (simulated height) */}
+                          <div
+                            className={`relative p-2.5 rounded-xl border-2 bg-card shadow-lg transition-all duration-200
+                              ${isActive ? `${colors.ring} ring-4 scale-125` : "ring-0 border-border hover:scale-110"}
+                            `}
+                            style={{
+                              transform: `translateY(-${isActive ? 16 : 8}px)`,
+                              boxShadow: `0 ${isActive ? 16 : 8}px 16px -4px rgba(0,0,0,0.25)`,
+                            }}
+                          >
+                            <NodeIcon type={node.type} className="h-5 w-5" />
 
-                            {/* Label */}
-                            <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                              <span className="px-2 py-0.5 rounded bg-slate-900/80 border border-slate-800 text-[9px] font-mono text-slate-400 tracking-tighter uppercase">
-                                {node.label}
-                              </span>
-                            </div>
-
-                            {/* Mini Telemetry Tooltip on Hover */}
-                            <AnimatePresence>
-                              {selectedNode?.id === node.id && (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                  animate={{ opacity: 1, y: -80, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.9 }}
-                                  className="absolute left-1/2 -translate-x-1/2 bottom-full z-50 pointer-events-none"
-                                >
-                                  <div className="bg-slate-900 border border-emerald-500/50 p-3 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.3)] min-w-[120px]">
-                                    <div className="flex gap-4">
-                                       <div className="flex items-center gap-1.5">
-                                          <Thermometer className="h-3 w-3 text-red-400" />
-                                          <span className="text-[10px] font-mono text-white">{node.telemetry.temp}</span>
-                                       </div>
-                                       <div className="flex items-center gap-1.5">
-                                          <Activity className="h-3 w-3 text-emerald-400" />
-                                          <span className="text-[10px] font-mono text-white">{node.telemetry.load}</span>
-                                       </div>
-                                    </div>
-                                    <div className="mt-1 flex items-center gap-1.5">
-                                       <Wifi className="h-3 w-3 text-blue-400" />
-                                       <span className="text-[9px] font-mono text-slate-400">UP: {node.telemetry.uptime}</span>
-                                    </div>
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                            {/* Status dot */}
+                            <span className={`absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full border-2 border-card
+                              ${node.status === "online" ? "bg-green-500" : "bg-amber-500 animate-pulse"}
+                            `} />
                           </div>
+
+                          {/* Label below */}
+                          <span className="absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] font-bold uppercase tracking-wider text-muted-foreground bg-card/80 px-1.5 py-0.5 rounded border border-border">
+                            {node.label}
+                          </span>
                         </motion.div>
-                      ))}
+                      );
+                    })}
+
+                    {/* Grid reference */}
+                    <div className="absolute bottom-2 left-3 flex gap-3 text-[7px] font-mono text-muted-foreground/40 uppercase">
+                      <span>grid_ref: aula_v1</span>
+                      <span>scale 1:50</span>
                     </div>
                   </div>
-                </CardContent>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* ── Bottom telemetry cards ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {([
+              { icon: Zap,      color: "text-emerald-500", bg: "bg-emerald-500/10", label: "Consumption", value: "12.4 kWh" },
+              { icon: Wifi,     color: "text-cyan-500",    bg: "bg-cyan-500/10",    label: "Network",     value: "LOW LOAD"  },
+              { icon: Activity, color: "text-amber-500",   bg: "bg-amber-500/10",   label: "Threat",      value: "SECURE"    },
+            ] as const).map((card) => (
+              <Card key={card.label} className="group hover:shadow-lg transition-shadow">
+                <div className="p-5 flex items-center gap-4">
+                  <div className={`p-3 rounded-xl ${card.bg} group-hover:scale-110 transition-transform`}>
+                    <card.icon className={`h-5 w-5 ${card.color}`} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{card.label}</p>
+                    <p className="text-xl font-black">{card.value}</p>
+                  </div>
+                </div>
               </Card>
-            </div>
-
-            {/* Bottom Telemetry Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <Card className="bg-slate-900/40 border-slate-800 overflow-hidden group">
-                  <div className="p-6 flex items-center gap-4">
-                     <div className="p-3 bg-emerald-500/10 rounded-xl group-hover:bg-emerald-500/20 transition-colors">
-                        <Zap className="h-6 w-6 text-emerald-400" />
-                     </div>
-                     <div>
-                        <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">Consumption</p>
-                        <p className="text-2xl font-black text-white">12.4 kWh</p>
-                     </div>
-                  </div>
-               </Card>
-               <Card className="bg-slate-900/40 border-slate-800 overflow-hidden group">
-                  <div className="p-6 flex items-center gap-4">
-                     <div className="p-3 bg-cyan-500/10 rounded-xl group-hover:bg-cyan-500/20 transition-colors">
-                        <Wifi className="h-6 w-6 text-cyan-400" />
-                     </div>
-                     <div>
-                        <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">Network Load</p>
-                        <p className="text-2xl font-black text-white">LOW</p>
-                     </div>
-                  </div>
-               </Card>
-               <Card className="bg-slate-900/40 border-slate-800 overflow-hidden group">
-                  <div className="p-6 flex items-center gap-4">
-                     <div className="p-3 bg-amber-500/10 rounded-xl group-hover:bg-amber-500/20 transition-colors">
-                        <Activity className="h-6 w-6 text-amber-400" />
-                     </div>
-                     <div>
-                        <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">Threat Level</p>
-                        <p className="text-2xl font-black text-white">SECURE</p>
-                     </div>
-                  </div>
-               </Card>
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Right Sidebar Info */}
-          <div className="lg:col-span-3 space-y-6">
-            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur">
-              <CardHeader>
-                <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2 text-emerald-500">
-                  <Layers className="h-4 w-4" />
-                  LEGEND_SYSTEM
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-2 rounded-lg hover:bg-white/5 transition-colors">
-                  <div className="flex items-center gap-3">
-                    {getIcon("raspberry", "h-4 w-4")}
-                    <span className="text-xs font-mono text-slate-300">Raspberry Pi</span>
+        {/* ━━━━━━━━ RIGHT SIDEBAR ━━━━━━━━ */}
+        <div className="xl:col-span-3 space-y-6">
+
+          {/* Legend */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Layers className="h-4 w-4 text-primary" />
+                {t("technical_plan.legend.title")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {([
+                { type: "raspberry", label: t("technical_plan.legend.raspberry") },
+                { type: "arduino",   label: t("technical_plan.legend.arduino") },
+                { type: "pc",        label: t("technical_plan.legend.pc") },
+                { type: "sensor",    label: t("technical_plan.legend.sensor") },
+              ] as const).map((item) => (
+                <div key={item.type} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors">
+                  <div className={`p-1.5 rounded-lg ${TYPE_COLORS[item.type].bg}`}>
+                    <NodeIcon type={item.type} className="h-4 w-4" />
                   </div>
-                  <span className="text-[10px] font-mono text-slate-500">#01</span>
+                  <span className="text-sm">{item.label}</span>
                 </div>
-                <div className="flex items-center justify-between p-2 rounded-lg hover:bg-white/5 transition-colors">
-                  <div className="flex items-center gap-3">
-                    {getIcon("arduino", "h-4 w-4")}
-                    <span className="text-xs font-mono text-slate-300">Arduino Node</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-500">#02</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded-lg hover:bg-white/5 transition-colors">
-                  <div className="flex items-center gap-3">
-                    {getIcon("pc", "h-4 w-4")}
-                    <span className="text-xs font-mono text-slate-300">PC Station</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-500">#04</span>
-                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          {/* Node Detail Panel (click on a node) */}
+          <AnimatePresence mode="wait">
+            {active && (
+              <motion.div
+                key={active.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+              >
+                <Card className="border-2 border-primary/30 shadow-lg">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <NodeIcon type={active.type} className="h-4 w-4" />
+                      {active.label}
+                    </CardTitle>
+                    <CardDescription className="font-mono text-[10px]">ID: {active.id.toUpperCase()}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1.5"><Thermometer className="h-3.5 w-3.5 text-red-400" /> Temp</span>
+                      <span className="font-mono font-bold">{active.temp}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1.5"><Activity className="h-3.5 w-3.5 text-emerald-400" /> Load</span>
+                      <span className="font-mono font-bold">{active.load}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground flex items-center gap-1.5"><Wifi className="h-3.5 w-3.5 text-blue-400" /> Uptime</span>
+                      <span className="font-mono font-bold">{active.uptime}</span>
+                    </div>
+                    {/* Load bar */}
+                    <div className="pt-1">
+                      <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full ${parseInt(active.load) > 80 ? "bg-amber-500" : "bg-primary"}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: active.load }}
+                          transition={{ duration: 0.6 }}
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {!active && (
+            <Card className="border-dashed">
+              <CardContent className="py-10 text-center text-sm text-muted-foreground">
+                <Monitor className="h-8 w-8 mx-auto mb-3 opacity-30" />
+                <p className="font-medium">Click a node on the plan</p>
+                <p className="text-xs mt-1 opacity-60">to inspect real-time telemetry</p>
               </CardContent>
             </Card>
+          )}
 
-            <Card className="bg-emerald-600 border-none shadow-[0_0_50px_rgba(16,185,129,0.2)] overflow-hidden">
-               <div className="p-8 text-white relative">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse" />
-                  <div className="relative z-10 space-y-4">
-                     <div className="h-10 w-10 bg-white text-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <Zap className="h-6 w-6" />
-                     </div>
-                     <div>
-                        <h4 className="text-2xl font-black italic tracking-tighter">99.8%</h4>
-                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">System Uptime</p>
-                     </div>
-                     <p className="text-xs leading-tight opacity-70">
-                        Monitoring all nodes in real-time. Power saving mode active globally.
-                     </p>
-                  </div>
-               </div>
-            </Card>
-          </div>
-
+          {/* Uptime Card */}
+          <Card className="bg-primary text-primary-foreground border-none shadow-lg overflow-hidden relative">
+            <div className="absolute -top-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
+            <CardContent className="p-6 relative z-10 space-y-3">
+              <div className="h-10 w-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <Zap className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-3xl font-black tracking-tight">99.8%</p>
+                <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">System Uptime</p>
+              </div>
+              <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-white rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: "99.8%" }}
+                  transition={{ duration: 1.2, delay: 0.3 }}
+                />
+              </div>
+              <p className="text-[10px] opacity-60 leading-relaxed">
+                All 7 nodes reporting nominal status. Power-saving mode engaged globally.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
