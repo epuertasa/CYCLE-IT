@@ -69,6 +69,26 @@ export default function RpiScript() {
         </div>
       </div>
 
+      {/* Zona de vídeo explicatiu introduïda abans dels passos */}
+      <div className="mb-16">
+        <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold">Videotutorial en acció</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+              T'ho ensenyem visualment. Descobreix com preparar i desplegar el script dins de la Raspberry Pi en qüestió de minuts.
+            </p>
+        </div>
+        <div className="relative aspect-video w-full max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.1)] ring-1 ring-primary/20 bg-black/50 group">
+          <video 
+            className="w-full h-full object-contain"
+            controls
+            poster="/logo-cycle-it.svg"
+          >
+            <source src="/videotutorial-raspberry.mp4" type="video/mp4" />
+            El teu navegador no suporta l'element de vídeo.
+          </video>
+        </div>
+      </div>
+
       <div className="space-y-6">
         <h2 className="text-3xl font-bold text-center mb-10">Instal·lació pas a pas</h2>
         
