@@ -80,7 +80,7 @@ export default function RpiScript() {
         <div className="relative aspect-video w-full max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.1)] ring-1 ring-primary/20 bg-black group">
           <iframe 
             className="w-full h-full"
-            src="https://www.youtube.com/embed/RpseX2ylEuw" 
+            src="https://www.youtube.com/embed/1WDagiA8fdU" 
             title="Raspberry Pi Setup Tutorial" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowFullScreen
