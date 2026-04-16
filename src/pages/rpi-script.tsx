@@ -15,16 +15,19 @@ export default function RpiScript() {
       title: t("rpi.step2.title"),
       desc: t("rpi.step2.desc"),
       icon: <Network className="w-8 h-8 text-primary" />,
+      snippet: "scp rpi-energy-saver.py pi@192.168.1.50:~/"
     },
     {
       title: t("rpi.step3.title"),
       desc: t("rpi.step3.desc"),
       icon: <Cpu className="w-8 h-8 text-primary" />,
+      snippet: "nano rpi-energy-saver.py\n# Modifica PC_IP = '...'"
     },
     {
       title: t("rpi.step4.title"),
       desc: t("rpi.step4.desc"),
       icon: <Terminal className="w-8 h-8 text-primary" />,
+      snippet: "nohup python3 rpi-energy-saver.py &"
     },
   ];
 
@@ -69,25 +72,27 @@ export default function RpiScript() {
       <div className="space-y-6">
         <h2 className="text-3xl font-bold text-center mb-10">Instal·lació pas a pas</h2>
         
-        <div className="grid md:grid-cols-2 gap-6 relative">
-          {/* Timeline connecting line for desktop view */}
-          <div className="hidden md:block absolute left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-primary/50 to-transparent -translate-x-1/2 z-0"></div>
-
+        <div className="flex flex-col gap-6">
           {steps.map((step, index) => (
             <div 
                key={index} 
-               className={`bg-card p-6 rounded-xl border shadow-sm flex flex-col items-start gap-4 transform transition-transform hover:-translate-y-1 relative z-10 ${index % 2 === 0 ? "md:mr-6" : "md:ml-6 md:mt-24"}`}
+               className="bg-card p-6 rounded-xl border shadow-sm flex flex-col md:flex-row items-start md:items-center gap-6 transform transition-transform hover:-translate-y-1"
             >
-               <div className="bg-primary/5 p-3 rounded-2xl border border-primary/10 inline-flex">
+               <div className="bg-primary/5 p-4 rounded-full border border-primary/10 shrink-0">
                  {step.icon}
                </div>
-               <div>
+               <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
                     {step.title}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
                </div>
+               {step.snippet && (
+                 <div className="w-full md:w-auto bg-black/90 dark:bg-black/50 text-green-400 p-4 rounded-lg font-mono text-sm shadow-inner shrink-0 md:min-w-[320px] overflow-x-auto border border-white/10">
+                   <pre><code>{step.snippet}</code></pre>
+                 </div>
+               )}
             </div>
           ))}
         </div>
