@@ -123,6 +123,7 @@ export default function CentralGestionIoT() {
         <AnimatePresence mode="wait">
           
           {/* ─── SCANNING ZONE ─── */}
+          {scanStatus !== "success" ? (
             <motion.div
               key="scanner"
               initial={{ opacity: 0, scale: 0.9 }}
