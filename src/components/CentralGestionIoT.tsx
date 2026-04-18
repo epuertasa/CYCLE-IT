@@ -105,10 +105,10 @@ export default function CentralGestionIoT() {
             transition={{ duration: 0.8 }}
             className="space-y-4"
           >
-            <span className="px-4 py-1.5 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full border border-emerald-500/30 tracking-widest uppercase">
+            <span className="px-4 py-1.5 bg-emerald-500/20 text-emerald-400 text-xs font-black rounded-full border border-emerald-500/30 tracking-widest uppercase mb-2">
               Project: CYCLE-IT
             </span>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
               Cicla l'Energia.<br/>
               <span className="text-emerald-500">Controla el Futur.</span>
             </h1>
@@ -119,7 +119,7 @@ export default function CentralGestionIoT() {
         </div>
       </section>
 
-      <main className="container mx-auto px-4 -mt-16 pb-20 relative z-30">
+      <main className="container mx-auto px-4 -mt-24 md:-mt-32 pb-20 relative z-30">
         <AnimatePresence mode="wait">
           
           {/* ─── SCANNING ZONE ─── */}
@@ -131,7 +131,7 @@ export default function CentralGestionIoT() {
               exit={{ opacity: 0, scale: 1.1 }}
               className="max-w-xl mx-auto"
             >
-              <div className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 md:p-12 shadow-2xl text-center space-y-8">
+              <div className="bg-card/90 backdrop-blur-2xl border border-border shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] dark:shadow-2xl rounded-[2.5rem] p-8 md:p-12 text-center space-y-8">
                 <div className="relative w-48 h-48 mx-auto">
                   <div className="absolute inset-0 border-4 border-dashed border-emerald-500/20 rounded-2xl animate-spin-slow" />
                   <div className="absolute inset-4 border-2 border-emerald-500/40 rounded-xl" />
@@ -182,7 +182,7 @@ export default function CentralGestionIoT() {
               
               {/* Device Main Info (Glassmorphism) */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="bg-card/60 backdrop-blur-2xl border border-border rounded-3xl p-8 shadow-xl relative overflow-hidden group">
+                <div className="bg-card/80 backdrop-blur-3xl border border-border rounded-[2.5rem] p-8 shadow-xl relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-6">
                     <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                       <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,1)]" />
