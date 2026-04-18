@@ -1,8 +1,7 @@
 import * as React from "react";
-// Changed @/ alias to relative paths to avoid IDE resolution issues
-import { useTranslation } from "../hooks/use-translation";
-import { type TranslationKey } from "../i18n/translations";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
+import { useTranslation } from "@/hooks/use-translation";
+import { type TranslationKey } from "@/i18n/translations";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
   Cpu, 
   Server, 

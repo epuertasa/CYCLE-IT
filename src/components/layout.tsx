@@ -34,6 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const navLinks = [
     { href: "/", label: t("nav.home"), icon: Home },
     { href: "/scanner", label: t("nav.scanner"), icon: QrCode },
+    { href: "/gestio-iot", label: t("nav.iot_mgmt"), icon: Cpu },
     { href: "/plano-tecnico", label: t("nav.technical_plan"), icon: Layers },
     { href: "/aula-verde", label: t("nav.aula_verde"), icon: Cpu },
     { href: "/rpi-script", label: t("nav.rpi_script"), icon: Terminal },
