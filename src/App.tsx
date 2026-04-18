@@ -15,7 +15,7 @@ import QrCodes from "@/pages/qrcodes";
 import NotFound from "@/pages/not-found";
 import AulaVerde from "@/pages/aula-verde";
 import RpiScript from "@/pages/rpi-script";
-import CentralGestionIoT from "@/components/CentralGestionIoT";
+import AulaVerdaCentralHub from "@/components/AulaVerdaCentralHub";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +32,7 @@ function Router() {
         <Route path="/aula-verde" component={AulaVerde} />
         <Route path="/qrcodes" component={QrCodes} />
         <Route path="/rpi-script" component={RpiScript} />
-        <Route path="/gestio-iot" component={CentralGestionIoT} />
+        <Route path="/gestio-iot" component={AulaVerdaCentralHub} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
