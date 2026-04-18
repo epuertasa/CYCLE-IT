@@ -90,7 +90,7 @@ export default function CentralGestionIoT() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/30">
       
       {/* ─── Hero Banner ─── */}
       <section className="relative h-[40vh] md:h-[50vh] overflow-hidden">
@@ -112,7 +112,7 @@ export default function CentralGestionIoT() {
               Cicla l'Energia.<br/>
               <span className="text-emerald-500">Controla el Futur.</span>
             </h1>
-            <p className="max-w-md mx-auto text-slate-400 text-lg">
+            <p className="max-w-md mx-auto text-white/70 text-lg">
               Monitorització de hardware i control d'eficiència en temps real per a l'Aula Verda.
             </p>
           </motion.div>
@@ -123,7 +123,6 @@ export default function CentralGestionIoT() {
         <AnimatePresence mode="wait">
           
           {/* ─── SCANNING ZONE ─── */}
-          {scanStatus !== "success" ? (
             <motion.div
               key="scanner"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -131,7 +130,7 @@ export default function CentralGestionIoT() {
               exit={{ opacity: 0, scale: 1.1 }}
               className="max-w-xl mx-auto"
             >
-              <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl text-center space-y-8">
+              <div className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8 md:p-12 shadow-2xl text-center space-y-8">
                 <div className="relative w-48 h-48 mx-auto">
                   <div className="absolute inset-0 border-4 border-dashed border-emerald-500/20 rounded-2xl animate-spin-slow" />
                   <div className="absolute inset-4 border-2 border-emerald-500/40 rounded-xl" />
@@ -150,7 +149,7 @@ export default function CentralGestionIoT() {
 
                 <div className="space-y-4">
                   <h2 className="text-2xl font-bold">Vincular Dispositiu IoT</h2>
-                  <p className="text-slate-400">Escaneja el codi QR de la Raspberry Pi per accedir al control de potència.</p>
+                  <p className="text-muted-foreground">Escaneja el codi QR de la Raspberry Pi per accedir al control de potència.</p>
                   
                   <button
                     onClick={handleStartScan}
@@ -182,7 +181,7 @@ export default function CentralGestionIoT() {
               
               {/* Device Main Info (Glassmorphism) */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="bg-slate-900/60 backdrop-blur-2xl border border-white/5 rounded-3xl p-8 shadow-2xl relative overflow-hidden group">
+                <div className="bg-card/60 backdrop-blur-2xl border border-border rounded-3xl p-8 shadow-xl relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-6">
                     <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                       <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,1)]" />
@@ -194,7 +193,7 @@ export default function CentralGestionIoT() {
                     {/* Ring Chart SVG */}
                     <div className="relative w-48 h-48 flex items-center justify-center">
                       <svg className="w-full h-full transform -rotate-90">
-                        <circle cx="96" cy="96" r="88" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-slate-800" />
+                        <circle cx="96" cy="96" r="88" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-muted/30" />
                         <motion.circle
                           cx="96" cy="96" r="88" stroke="currentColor" strokeWidth="12" fill="transparent"
                           strokeDasharray={553}
@@ -205,33 +204,33 @@ export default function CentralGestionIoT() {
                       </svg>
                       <div className="absolute flex flex-col items-center">
                         <span className="text-4xl font-black">{Math.round(status.watts)}</span>
-                        <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Watts</span>
+                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Watts</span>
                       </div>
                     </div>
 
                     <div className="flex-1 space-y-6 text-center md:text-left">
                       <div>
-                        <h3 className="text-slate-400 font-bold uppercase text-xs tracking-widest mb-1 flex items-center justify-center md:justify-start gap-2">
+                        <h3 className="text-muted-foreground font-bold uppercase text-xs tracking-widest mb-1 flex items-center justify-center md:justify-start gap-2">
                           <Leaf className="w-3 h-3 text-emerald-500" />
                           Impacte Ambiental Estalviat
                         </h3>
                         <div className="flex items-baseline justify-center md:justify-start gap-2">
-                          <motion.span className="text-5xl font-black text-emerald-400">
+                          <motion.span className="text-5xl font-black text-emerald-500">
                             {status.co2Saved.toFixed(4)}
                           </motion.span>
-                          <span className="text-xl font-bold text-slate-500">kg CO₂</span>
+                          <span className="text-xl font-bold text-muted-foreground">kg CO₂</span>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
+                        <div className="p-4 bg-muted/50 border border-border rounded-2xl">
                           <Activity className="w-4 h-4 text-emerald-500 mb-2" />
-                          <p className="text-[10px] text-slate-500 uppercase font-black">Xarxa</p>
+                          <p className="text-[10px] text-muted-foreground uppercase font-black">Xarxa</p>
                           <p className="text-lg font-bold">Estable</p>
                         </div>
-                        <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
+                        <div className="p-4 bg-muted/50 border border-border rounded-2xl">
                           <Cpu className="w-4 h-4 text-emerald-500 mb-2" />
-                          <p className="text-[10px] text-slate-500 uppercase font-black">CPU Load</p>
+                          <p className="text-[10px] text-muted-foreground uppercase font-black">CPU Load</p>
                           <p className="text-lg font-bold">12%</p>
                         </div>
                       </div>
@@ -242,8 +241,8 @@ export default function CentralGestionIoT() {
                 {/* Controls Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Mode Selector */}
-                  <div className="bg-slate-900/60 backdrop-blur-xl border border-white/5 rounded-3xl p-6">
-                    <h4 className="text-sm font-bold text-slate-400 mb-4 flex items-center gap-2 uppercase tracking-widest">
+                  <div className="bg-card/60 backdrop-blur-xl border border-border rounded-3xl p-6">
+                    <h4 className="text-sm font-bold text-muted-foreground mb-4 flex items-center gap-2 uppercase tracking-widest">
                       <Settings className="w-4 h-4" />
                       Mode de Funcionament
                     </h4>
@@ -258,7 +257,7 @@ export default function CentralGestionIoT() {
                           className={`py-3 rounded-xl border text-xs font-bold transition-all ${
                             status.mode === mode 
                               ? "bg-emerald-600 border-emerald-500 text-white shadow-lg shadow-emerald-900/40" 
-                              : "bg-white/5 border-white/10 hover:border-emerald-500/50"
+                              : "bg-muted border-border hover:border-emerald-500/50"
                           }`}
                         >
                           {mode}
@@ -268,10 +267,10 @@ export default function CentralGestionIoT() {
                   </div>
 
                   {/* Hardware Switch */}
-                  <div className="bg-slate-900/60 backdrop-blur-xl border border-white/5 rounded-3xl p-6 flex items-center justify-between">
+                  <div className="bg-card/60 backdrop-blur-xl border border-border rounded-3xl p-6 flex items-center justify-between">
                     <div>
-                      <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Interruptor PDU</h4>
-                      <p className="text-xs text-slate-500 mt-1">Control directe d'alimentació</p>
+                      <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Interruptor PDU</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Control directe d'alimentació</p>
                     </div>
                     <button
                       onClick={() => {
@@ -279,7 +278,7 @@ export default function CentralGestionIoT() {
                         setStatus(prev => ({ ...prev, isActive: !prev.isActive }));
                       }}
                       className={`w-20 h-10 rounded-full transition-all relative p-1 ${
-                        status.isActive ? "bg-emerald-600" : "bg-slate-700"
+                        status.isActive ? "bg-emerald-600" : "bg-muted-foreground/30"
                       }`}
                     >
                       <motion.div
@@ -307,14 +306,14 @@ export default function CentralGestionIoT() {
                   </div>
                 </div>
 
-                <div className="bg-slate-900/60 backdrop-blur-xl border border-white/5 rounded-3xl p-6">
-                  <h4 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">Eficiència del Sistema</h4>
+                <div className="bg-card/60 backdrop-blur-xl border border-border rounded-3xl p-6">
+                  <h4 className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em] mb-4">Eficiència del Sistema</h4>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-xs text-slate-400 font-bold">Consum Estimant (24h)</span>
+                      <span className="text-xs text-muted-foreground font-bold">Consum Estimant (24h)</span>
                       <span className="text-sm font-black">10.2 kWh</span>
                     </div>
-                    <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-emerald-500"
                         initial={{ width: 0 }}
@@ -343,9 +342,9 @@ export default function CentralGestionIoT() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-center justify-center"
           >
-            <div className="bg-slate-900 p-6 rounded-2xl border border-emerald-500/30 flex flex-col items-center gap-4 shadow-2xl">
+            <div className="bg-card p-6 rounded-2xl border border-emerald-500/30 flex flex-col items-center gap-4 shadow-2xl">
               <RefreshCw className="w-10 h-10 text-emerald-500 animate-spin" />
               <p className="text-sm font-bold tracking-widest text-emerald-400 uppercase">Enviant Comandament...</p>
             </div>
