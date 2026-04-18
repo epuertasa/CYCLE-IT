@@ -207,9 +207,9 @@ export default function TechnicalPlan() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="p-0 relative">
-            <div className="relative overflow-hidden group">
-              <img src="/aula_floor_plan.png" alt="Plano" className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
+          <CardContent className="p-0 relative flex justify-center bg-muted/5">
+            <div className="relative overflow-hidden group max-w-5xl w-full">
+              <img src="/aula_floor_plan.png" alt="Plano" className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.01]" />
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-[18%] left-[72%] pointer-events-auto">
                   <motion.div className="relative" animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}>

@@ -27,7 +27,7 @@ export default function AulaVerdaCentralHub() {
   
   // IoT States
   const [watts, setWatts] = useState(420);
-  const [co2Saved, setCo2Saved] = useState(124.5782);
+  const [co2Saved, setCo2Saved] = useState(74.42);
   const [brightness, setBrightness] = useState(75);
   const [temperature, setTemperature] = useState(22.5);
   const [isMainPowerOn, setIsMainPowerOn] = useState(true);
@@ -39,7 +39,7 @@ export default function AulaVerdaCentralHub() {
     setTimeout(() => {
       setIsConnecting(false);
       setIsUnlocked(true);
-    }, 2200);
+    }, 1500);
   };
 
   // Real-time Data Update Effect
@@ -48,7 +48,7 @@ export default function AulaVerdaCentralHub() {
     const interval = setInterval(() => {
       const newWatts = 380 + Math.random() * 80;
       setWatts(newWatts);
-      setCo2Saved(prev => prev + (newWatts < 400 ? 0.00025 : 0.0001));
+      setCo2Saved(prev => prev + (newWatts < 420 ? 0.0025 : 0.001));
       setEfficiency(newWatts < 420 ? "up" : "down");
     }, 2500);
     return () => clearInterval(interval);
@@ -61,7 +61,7 @@ export default function AulaVerdaCentralHub() {
       <section className="relative h-[45vh] md:h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/60 to-background z-10" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=2070')] bg-cover bg-center brightness-[0.3] contrast-125" />
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=2070')] bg-cover bg-center brightness-[0.2] contrast-125 scale-110" />
           
           {/* Ambient Light Effects */}
           <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
@@ -76,7 +76,7 @@ export default function AulaVerdaCentralHub() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-4">
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em]">Project: CYCLE-IT Hub</span>
+            <span className="text-xs font-black text-emerald-500 uppercase tracking-[0.2em]">Project: CYCLE-IT Hub</span>
           </div>
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white leading-tight drop-shadow-2xl">
             Cicla l'Energia.<br/>
@@ -105,15 +105,15 @@ export default function AulaVerdaCentralHub() {
                 
                 <div className="relative">
                   <div className="w-28 h-28 mx-auto relative flex items-center justify-center">
-                    <div className="absolute inset-0 border-2 border-emerald-500/20 rounded-3xl animate-spin-slow" />
+                    <div className="absolute inset-0 border-2 border-emerald-500/20 rounded-3xl" />
                     <div className="absolute inset-2 border border-emerald-500/40 rounded-2xl" />
                     <QrCode className="w-12 h-12 text-emerald-500" />
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <h2 className="text-3xl font-black tracking-tight">Vincular Terminal</h2>
-                  <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">Escaneja el codi del concentrador per desbloquejar el panell de gestió de l'Aula Verda.</p>
+                  <h2 className="text-3xl font-black tracking-tight">Accés al Terminal</h2>
+                  <p className="text-muted-foreground leading-relaxed">Conecta amb el concentrador IoT per gestionar l'Aula Verda.</p>
                 </div>
 
                 <button
@@ -140,7 +140,7 @@ export default function AulaVerdaCentralHub() {
               key="dashboard"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8"
             >
               
               {/* WIDGET 1: Gestor d'Impacte i Energía */}
@@ -154,15 +154,15 @@ export default function AulaVerdaCentralHub() {
                         <Zap className="w-6 h-6 text-emerald-500" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-black leading-none">Gestor Energètic</h3>
-                        <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest mt-1">Infraestructura RPi-01</p>
+                        <h3 className="text-lg font-black leading-none">Gestió d'Energia</h3>
+                        <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mt-1">Sistemes de control</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       {isMainPowerOn && (
                         <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                           <Activity className="w-3 h-3 text-emerald-500 animate-pulse" />
-                          <span className="text-[10px] font-black text-emerald-500 uppercase">Live Metrics</span>
+                          <span className="text-xs font-black text-emerald-500 uppercase">En viu</span>
                         </div>
                       )}
                       <button 
@@ -197,23 +197,23 @@ export default function AulaVerdaCentralHub() {
                         >
                           {Math.round(watts)}
                         </motion.span>
-                        <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.2em]">Watts</span>
+                        <span className="text-sm font-black text-muted-foreground uppercase tracking-[0.2em]">Watts</span>
                       </div>
                     </div>
 
                     <div className="flex-1 space-y-8 text-center md:text-left w-full">
                       <div className="relative">
-                        <h4 className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start gap-2">
+                        <h4 className="text-sm font-black text-muted-foreground uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start gap-2">
                           <Leaf className="w-4 h-4 text-emerald-500" />
-                          CO₂ Mitigat Avui
+                          CO₂ estalviat avui
                         </h4>
                         <div className="flex items-baseline justify-center md:justify-start gap-3">
                           <motion.span 
                             className="text-6xl font-black text-emerald-500 tracking-tighter"
-                            animate={{ scale: [1, 1.02, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
+                            animate={{ scale: [1, 1.01, 1] }}
+                            transition={{ duration: 4, repeat: Infinity }}
                           >
-                            {co2Saved.toFixed(4)}
+                            {co2Saved.toFixed(2)}
                           </motion.span>
                           <span className="text-xl font-bold text-muted-foreground">kg</span>
                         </div>
@@ -227,14 +227,14 @@ export default function AulaVerdaCentralHub() {
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 bg-muted/30 border border-border/50 rounded-3xl">
+                        <div className="p-4 bg-muted/40 border border-border/50 rounded-3xl">
                           <Cpu className="w-4 h-4 text-emerald-500 mb-2" />
-                          <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">Càrrega CPU</p>
-                          <p className="text-xl font-black">12.4%</p>
+                          <p className="text-xs text-muted-foreground font-black uppercase tracking-widest">Processador</p>
+                          <p className="text-xl font-black">12%</p>
                         </div>
-                        <div className="p-4 bg-muted/30 border border-border/50 rounded-3xl">
+                        <div className="p-4 bg-muted/40 border border-border/50 rounded-3xl">
                           <Activity className="w-4 h-4 text-emerald-500 mb-2" />
-                          <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">Latència</p>
+                          <p className="text-xs text-muted-foreground font-black uppercase tracking-widest">Latència</p>
                           <p className="text-xl font-black">28ms</p>
                         </div>
                       </div>
@@ -251,14 +251,14 @@ export default function AulaVerdaCentralHub() {
                       </div>
                       <button 
                         onClick={() => setBrightness(0)}
-                        className="text-[10px] font-black text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors"
+                        className="text-xs font-black text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors"
                       >
-                        Forçar Apagat
+                        Apagar
                       </button>
                     </div>
                     
                     <h4 className="text-lg font-black mb-1">Il·luminació</h4>
-                    <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest mb-8">Panells LED Aula Verda</p>
+                    <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mb-8">Panells de l'aula</p>
                     
                     <div className="space-y-8">
                       <div className="flex justify-between items-center text-sm">
@@ -276,7 +276,7 @@ export default function AulaVerdaCentralHub() {
                         {[30, 60, 100].map(v => (
                           <button 
                             key={v} onClick={() => setBrightness(v)}
-                            className={`flex-1 py-3 rounded-2xl border text-[10px] font-black tracking-widest uppercase transition-all ${brightness === v ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-900/20' : 'bg-transparent border-border/50 text-muted-foreground'}`}
+                            className={`flex-1 py-3 rounded-2xl border text-xs font-black tracking-widest uppercase transition-all ${brightness === v ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-900/20' : 'bg-transparent border-border/50 text-muted-foreground'}`}
                           >
                             {v}%
                           </button>
@@ -292,13 +292,13 @@ export default function AulaVerdaCentralHub() {
                         <Thermometer className="w-6 h-6" />
                       </div>
                       <div className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] font-black text-emerald-500 uppercase">Automàtic</span>
+                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                        <span className="text-xs font-black text-emerald-500 uppercase">Auto</span>
                       </div>
                     </div>
                     
                     <h4 className="text-lg font-black mb-1">Climatització</h4>
-                    <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest mb-8">Ventilació Forçada</p>
+                    <p className="text-xs text-muted-foreground uppercase font-black tracking-widest mb-8">Temperatura ambiental</p>
                     
                     <div className="flex items-center justify-between gap-6 px-2">
                       <button 
@@ -322,15 +322,15 @@ export default function AulaVerdaCentralHub() {
                       <div className="flex items-center gap-3 p-3 bg-muted/20 border border-border/30 rounded-[1.5rem]">
                         <Droplets className="w-4 h-4 text-blue-400" />
                         <div>
-                          <p className="text-[8px] font-black text-muted-foreground uppercase">Humitat</p>
+                          <p className="text-xs font-black text-muted-foreground uppercase">Humitat</p>
                           <p className="text-sm font-black">48%</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 p-3 bg-muted/20 border border-border/30 rounded-[1.5rem]">
                         <Wind className="w-4 h-4 text-emerald-400" />
                         <div>
-                          <p className="text-[8px] font-black text-muted-foreground uppercase">Aire</p>
-                          <p className="text-sm font-black">Óptim</p>
+                          <p className="text-xs font-black text-muted-foreground uppercase">Aire</p>
+                          <p className="text-sm font-black">Normal</p>
                         </div>
                       </div>
                     </div>
@@ -347,35 +347,17 @@ export default function AulaVerdaCentralHub() {
                   <p className="text-white/70 text-sm leading-relaxed mb-10 font-medium">El sistema està ajustant automàticament els cicles de potència per estalviar un 12% més que ahir.</p>
                   
                   <div className="space-y-6">
-                    <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/60">
-                      <span>Eficiència Global</span>
-                      <span>96%</span>
+                    <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest text-white/60">
+                      <span>Energia Renovable</span>
+                      <span>100%</span>
                     </div>
                     <div className="w-full h-3 bg-black/20 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
-                        animate={{ width: "96%" }}
+                        animate={{ width: "100%" }}
                         transition={{ duration: 2, delay: 0.5 }}
                         className="h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
                       />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-card/40 backdrop-blur-3xl border border-border/50 rounded-[2.5rem] p-8 shadow-xl">
-                  <h4 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-6">Logs de Sistema</h4>
-                  <div className="space-y-5 text-[10px] font-mono leading-relaxed">
-                    <div className="flex items-center gap-3 text-emerald-500">
-                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-                      <span>Sincronització RPi completa</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-muted-foreground opacity-60">
-                      <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full" />
-                      <span>Check d'humitat: 48% (Normal)</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-muted-foreground opacity-60">
-                      <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full" />
-                      <span>Actualització token: 15:42:01</span>
                     </div>
                   </div>
                 </div>
@@ -387,14 +369,10 @@ export default function AulaVerdaCentralHub() {
         </AnimatePresence>
       </main>
 
-      {/* Footer Industrial Discreto */}
-      <footer className="container mx-auto px-4 py-16 border-t border-border opacity-30 mt-10">
-        <div className="flex justify-between items-center text-[8px] font-black uppercase tracking-[0.4em]">
-          <span>© 2026 CYCLE-IT INDUSTRIAL</span>
-          <div className="flex gap-4">
-            <span className="text-emerald-500">Node-A1 ACTIVE</span>
-            <span>Server-STABLE</span>
-          </div>
+      {/* Footer Limpio */}
+      <footer className="container mx-auto px-4 py-20 border-t border-border opacity-40 mt-10">
+        <div className="flex justify-center items-center text-xs font-black uppercase tracking-[0.4em]">
+          <span>© 2026 CYCLE-IT • Aula Verda</span>
         </div>
       </footer>
 
